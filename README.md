@@ -73,9 +73,12 @@ python3 jknockr.py <target> [options]
 - **Legal Responsibility:** You are responsible for ensuring that your use of this script complies with all applicable laws and terms of service.
 
 ## Interesting Finds
-- Sending a [U+0010](https://unicode-explorer.com/c/0010) character disconnects you from the room. Same with using as your name.
-- Unicode in a URL is converted to puny code. *(`𓆨.中国` only 4 characters you send to the chat & itll convert to `xn--907d.xn--fiqs8s`)*
-- Using @ in a URL converts it to a `mailto://`
+- Sending a [U+0010](https://unicode-explorer.com/c/0010) *( DATA LINK ESCAPE)* character disconnects you from the room. Same with using as your name.
+- Client DOS possible from javascript parsing links, unicode & emojis in the chat messages.
+	- Unicode in a URL is converted to puny code. *(`𓆨.中国` only 4 characters you send to the chat & itll convert to `xn--907d.xn--fiqs8s`)*
+	- Using @ in a URL converts it to a `mailto://`
+	- Using `ftp://` works for making clickable links also.
+	- Certain text converts to an emojis *(`:)` converts to `😃`)*
 
 ___
 
