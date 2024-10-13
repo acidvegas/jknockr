@@ -155,7 +155,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
                     if not tlds:
                         print(f'Client {client_id}: TLD list is empty. Using default TLDs.')
                         tlds = ['com', 'net', 'org', 'info', 'io']
-                    msg = ' '.join(f'{random_word(5)}.{random.choice(tlds)}' for _ in range(2500))
+					msg = ' '.join( f'{random_word(2)}@{random_word(2)}.{random.choice(tlds)}' if random.choice([True,False]) else f'{random_word(4)}.{random.choice(tlds)}' for _ in range(2500))
                 elif args.message:
                     msg = args.message
                 message_body = f'''<body rid='{rid}' sid='{sid}' xmlns='http://jabber.org/protocol/httpbind'>

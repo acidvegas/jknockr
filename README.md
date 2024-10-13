@@ -72,9 +72,10 @@ python3 jknockr.py <target> [options]
 - **Server Impact:** Running this script can significantly impact server performance. Monitor your server resources during testing.
 - **Legal Responsibility:** You are responsible for ensuring that your use of this script complies with all applicable laws and terms of service.
 
-## Disclaimer
-
-The developer provides this script "as is" without any warranties. Use it at your own risk. The developer is not responsible for any damage or misuse of this script.
+## Interesting Finds
+- Sending a [U+0010](https://unicode-explorer.com/c/0010) character disconnects you from the room. Same with using as your name.
+- Unicode in a URL is converted to puny code. *(`𓆨.中国` only 4 characters you send to the chat & itll convert to `xn--907d.xn--fiqs8s`)*
+- Using @ in a URL converts it to a `mailto://`
 
 ___
 
