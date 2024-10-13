@@ -51,7 +51,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 		print(f'Client {client_id}: Establishing session')
 		body = f'''<body rid='{rid}' to='{target_domain}' xml:lang='en' wait='60' hold='1' xmlns='http://jabber.org/protocol/httpbind'/>'''
 		request = urllib.request.Request(bosh_url, data=body.encode('utf-8'), headers=headers, method='POST')
-		response = opener.open(request, timeout=10)
+		response = opener.open(request, timeout=30)
 		response_text = response.read().decode('utf-8')
 		sid = extract_sid(response_text)
 		if not sid:
@@ -65,7 +65,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 		  <auth mechanism='ANONYMOUS' xmlns='urn:ietf:params:xml:ns:xmpp-sasl'/>
 		</body>'''
 		request = urllib.request.Request(bosh_url, data=auth_body.encode('utf-8'), headers=headers, method='POST')
-		response = opener.open(request, timeout=10)
+		response = opener.open(request, timeout=30)
 		response_text = response.read().decode('utf-8')
 		if '<success' in response_text:
 			print(f'Client {client_id}: Authentication successful.')
@@ -77,7 +77,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 		print(f'Client {client_id}: Restarting stream')
 		restart_body = f'''<body rid='{rid}' sid='{sid}' xmlns='http://jabber.org/protocol/httpbind' to='{target_domain}' xml:lang='en' xmpp:restart='true' xmlns:xmpp='urn:xmpp:xbosh'/>'''
 		request = urllib.request.Request(bosh_url, data=restart_body.encode('utf-8'), headers=headers, method='POST')
-		response = opener.open(request, timeout=10)
+		response = opener.open(request, timeout=30)
 		rid += 1
 		print(f'Client {client_id}: Binding resource')
 		bind_body = f'''<body rid='{rid}' sid='{sid}' xmlns='http://jabber.org/protocol/httpbind'>
@@ -86,7 +86,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 		  </iq>
 		</body>'''
 		request = urllib.request.Request(bosh_url, data=bind_body.encode('utf-8'), headers=headers, method='POST')
-		response = opener.open(request, timeout=10)
+		response = opener.open(request, timeout=30)
 		response_text = response.read().decode('utf-8')
 		jid = extract_jid(response_text)
 		if not jid:
@@ -108,7 +108,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 			</presence>
 		  </body>'''
 		request = urllib.request.Request(bosh_url, data=presence_body.encode('utf-8'), headers=headers, method='POST')
-		response = opener.open(request, timeout=10)
+		response = opener.open(request, timeout=30)
 		response_text = response.read().decode('utf-8')
 		print(f'Client {client_id}: Server response to initial presence (join room):')
 		print(response_text)
@@ -145,7 +145,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 					</presence>
 				  </body>'''
 				request = urllib.request.Request(bosh_url, data=presence_body.encode('utf-8'), headers=headers, method='POST')
-				response = opener.open(request, timeout=10)
+				response = opener.open(request, timeout=30)
 				response_text = response.read().decode('utf-8')
 				print(f'Client {client_id}: Server response to presence update:')
 				print(response_text)
@@ -164,7 +164,7 @@ def client_join(client_id: int, tlds: list, args: argparse.Namespace, video_id: 
 					</message>
 				  </body>'''
 				request = urllib.request.Request(bosh_url, data=message_body.encode('utf-8'), headers=headers, method='POST')
-				response = opener.open(request, timeout=10)
+				response = opener.open(request, timeout=30)
 				response_text = response.read().decode('utf-8')
 				print(f'Client {client_id}: Server response to message {i}:')
 				print(response_text)
@@ -226,7 +226,7 @@ def main() -> None:
 		try:
 			tlds_url = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
 			request = urllib.request.Request(tlds_url)
-			with urllib.request.urlopen(request, timeout=10) as response:
+			with urllib.request.urlopen(request, timeout=30) as response:
 				response_text = response.read().decode('utf-8')
 				tlds = [line.lower() for line in response_text.splitlines() if not line.startswith('#')]
 				print(f'Number of TLDs fetched: {len(tlds)}')
