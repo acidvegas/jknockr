@@ -36,6 +36,7 @@ python3 jknockr.py <target> [options]
 - `--message "Your message"`: Send a custom message to the room.
 - `--hand`: Enable hand raising simulation.
 - `--nick` or `--nick "Nickname"`: Enable nickname changes. Optionally provide a base nickname.
+- `--poll "Your message"`: Enable creating polls
 - `--youtube "YouTube URL"`: Share a YouTube video in the room.
 - `--threads N`: Number of client threads to simulate (default is 100).
 
